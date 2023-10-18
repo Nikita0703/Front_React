@@ -11,36 +11,83 @@ export default function Employee() {
 
     const [name,setName]=useState('')
     const [surname,setSurname]=useState('')
-    const[salary,setSalary]=useState(0);
+    const[salary,setSalary]=useState(0)
     const [department,setDepartment]=useState('')
+
     const [id,setId]=useState(0)
 
+    const [model,setModel]=useState('')
+    const [made,setMade]=useState(0)
+   // const [car,Set]
+
+    const [adress,setAdress]=useState('')
+    const [flour,setFlour]=useState(0)
+    const [flat,setFlat]=useState(0)
+    
+    const [vid,setVid]=useState('')
+    const [petname,setPetname]=useState('')
+    
+    const [title,setTitle]=useState('')
+    const [year,setYear]=useState(0)
+
+    const[pets,setPets]=useState([])
     const[employees,setEmployees]=useState([])
+    const[projects,setProjects]=useState([])
 
 
     const handleClick=(e)=>{
         e.preventDefault()
-        const employee = {name,surname,salary,department}
+        const car = {model,made}
+        const house = {adress,flour,flat}
+        const employee = {name,surname,salary,department,car,house,pets,projects}
         console.log(employee)
-        axios.post("http://localhost:8080/api/employees",
+        axios.post("http://localhost:8080/api1/employees",
             employee,{
-            headers:{"Contend-Type":"application/json"}
+            headers:{"Contend-Type":"application/json",
+                    "charset":"ISO-8859-1"
+        }
+            
             
 
        }).then(()=>{
             console.log("New student added")
         })
         
-        window.location.reload()
+        //window.location.reload()
+    }
+
+    const addProject=(e)=>{
+        const project = {title,year}
+        console.log(project)
+       
+        setProjects([...projects, project]);
+
+    }
+
+    const addPet=(e)=>{
+        const pet = {vid,petname}
+        console.log(pet)
+       
+        setPets([...pets, pet]);
+
+    }
+
+    const addCar=(e)=>{
+        const newcar = {model,made}
+        console.log(newcar)
+       
+        //setCar(newcar);
+
     }
 
    const UpdateClick=(e)=>{
     //await waitForUpdate();
-
+    const car = {model,made}
+    const house = {adress,flour,flat}
       //console.log(name)
-      const employee1 = {id,name,surname,salary,department}
+      const employee1 = {id,name,surname,salary,department,car,house,pets,projects}
       console.log(employee1)
-      axios.put("http://localhost:8080/api/employees", employee1)
+      axios.put("http://localhost:8080/api1/employees", employee1)
        .then(response => console.log(response))
        .catch(error => console.error(error))
       window.location.reload()
@@ -57,6 +104,12 @@ export default function Employee() {
         setSalary(employee.salary)
         setDepartment(employee.department)
         
+       setModel(employee.car.model)
+       setMade(employee.car.made)
+
+        setAdress(employee.house.adress)
+        setFlour(employee.house.flour)
+        setFlat(employee.house.flat)
 
         //await waitForUpdate();
 
@@ -74,7 +127,7 @@ export default function Employee() {
 
     const handleEmployeeDelete = (id) => {
         
-        axios.delete(`http://localhost:8080/api/employees/${id}`)
+        axios.delete(`http://localhost:8080/api1/employees/${id}`)
           .then(response => console.log(response))
           .catch(error => console.error(error))
           window.location.reload()
@@ -82,7 +135,7 @@ export default function Employee() {
     
     
     useEffect(()=>{
-        axios.get("http://localhost:8080/api/employees")
+        axios.get("http://localhost:8080/api1/employees")
         .then(response=>
             setEmployees(response.data)
         )
@@ -130,7 +183,75 @@ export default function Employee() {
                value = {department}
                onChange={(e)=>setDepartment(e.target.value)}
             />
+            <h2>Car</h2>
 
+         <TextField fullWidth id="fildTitle" label="model"  variant="outlined"  sx={{ display: "block" }}
+             value = {model}
+               onChange={(e)=>setModel(e.target.value)}
+         />
+
+         <TextField fullWidth id="year" label="year"  variant="outlined"  sx={{ display: "block" }}
+             value = {made}
+             onChange={(e)=>
+                   setMade(parseInt(e.target.value))
+         } 
+         />
+
+<h2>House</h2>
+
+<TextField fullWidth id="fildTitle" label="Adress"  variant="outlined"  sx={{ display: "block" }}
+    value = {adress}
+      onChange={(e)=>setAdress(e.target.value)}
+/>
+
+<TextField fullWidth id="year" label="flour"  variant="outlined"  sx={{ display: "block" }}
+    value = {flour}
+    onChange={(e)=>
+          setFlour(parseInt(e.target.value))
+} 
+/>
+
+<TextField fullWidth id="year" label="flat"  variant="outlined"  sx={{ display: "block" }}
+    value = {flat}
+    onChange={(e)=>
+          setFlat(parseInt(e.target.value))
+} 
+/>
+
+<h2>Pets</h2>
+
+<TextField fullWidth id="fildTitle" label="vid"  variant="outlined"  sx={{ display: "block" }}
+    value = {vid}
+    onChange={(e)=>setVid(e.target.value)}
+ />
+
+<TextField fullWidth id="year" label="petname"  variant="outlined"  sx={{ display: "block" }}
+    value = {petname}
+    onChange={(e)=>
+     setPetname(e.target.value)
+ } 
+/>
+
+<Button variant="contained" onClick = {addPet}>
+     addPet </Button>   
+           
+           <h2>Projects</h2>
+
+           <TextField fullWidth id="fildTitle" label="title"  variant="outlined"  sx={{ display: "block" }}
+               value = {title}
+               onChange={(e)=>setTitle(e.target.value)}
+            />
+
+           <TextField fullWidth id="year" label="year"  variant="outlined"  sx={{ display: "block" }}
+               value = {year}
+               onChange={(e)=>
+                setYear(parseInt(e.target.value))
+            } 
+           />
+
+           <Button variant="contained" onClick = {addProject}>
+                addProject  </Button>
+            
             <Button variant="contained" onClick = {handleClick}>
                 Submit  </Button>
 
@@ -150,6 +271,43 @@ export default function Employee() {
             Surname:{employee.surname} <br/>
             Salary:{employee.salary} <br/>
             Department:{employee.department} <br/>
+            <h3>Car</h3>
+           
+            
+           < Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {employee.car.id}>
+                id:{employee.car.id} <br/>
+                Model:{employee.car.model} <br/>
+                Year:{employee.car.made}<br/>
+                </Paper>
+
+                <h3>House</h3>
+           
+            
+           < Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {employee.house.id}>
+                id:{employee.house.id} <br/>
+                Adress:{employee.house.adress} <br/>
+                Flour:{employee.house.flour} <br/>
+                Flat:{employee.house.flat}<br/>
+                </Paper>
+                
+                <h3>Pets</h3>
+           {employee.pets.map(pet=>(
+                <Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {pet.id}>
+                id:{pet.id} <br/>
+                title:{pet.vid} <br/>
+                petname:{pet.petname}<br/>
+                </Paper>
+            ))}
+                
+                <h3>Projects</h3>
+           {employee.projects.map(project=>(
+                <Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {project.id}>
+                id:{project.id} <br/>
+                title:{project.title} <br/>
+                year:{project.year}<br/>
+                </Paper>
+            ))}
+
             <Button variant="contained" onClick = {()=>handleClickUpdate(employee.id)}>
                 Update  </Button> 
                 <span>   </span>
