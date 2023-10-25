@@ -5,9 +5,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Paper } from '@mui/material';
 import Button from '@mui/material/Button';
+import './Employee.css'
 
 export default function Employee() {
-    const paperStyle={padding:'10px 10px 100px 10px',width:600,margin:"20px auto"}
+    const paperStyle={}
+   
 
     const [name,setName]=useState('')
     const [surname,setSurname]=useState('')
@@ -18,7 +20,7 @@ export default function Employee() {
 
     const [model,setModel]=useState('')
     const [made,setMade]=useState(0)
-   // const [car,Set]
+   
 
     const [adress,setAdress]=useState('')
     const [flour,setFlour]=useState(0)
@@ -47,13 +49,11 @@ export default function Employee() {
                     "charset":"ISO-8859-1"
         }
             
-            
-
-       }).then(()=>{
+            }).then(()=>{
             console.log("New student added")
         })
         
-        //window.location.reload()
+        
     }
 
     const addProject=(e)=>{
@@ -75,16 +75,13 @@ export default function Employee() {
     const addCar=(e)=>{
         const newcar = {model,made}
         console.log(newcar)
-       
-        //setCar(newcar);
 
     }
 
    const UpdateClick=(e)=>{
-    //await waitForUpdate();
-    const car = {model,made}
-    const house = {adress,flour,flat}
-      //console.log(name)
+      const car = {model,made}
+      const house = {adress,flour,flat}
+      
       const employee1 = {id,name,surname,salary,department,car,house,pets,projects}
       console.log(employee1)
       axios.put("http://localhost:8080/api1/employees", employee1)
@@ -111,16 +108,6 @@ export default function Employee() {
         setFlour(employee.house.flour)
         setFlat(employee.house.flat)
 
-        //await waitForUpdate();
-
-        //console.log(name)
-        //const employee1 = {id,name,surname,salary,department}
-//console.log(employee1)
-       // axios.put("http://localhost:8080/api/employees", employee1)
-          // .then(response => console.log(response))
-          // .catch(error => console.error(error))
-
-        ///window.location.reload()
     }
 
 
@@ -152,45 +139,44 @@ export default function Employee() {
 
     return (
      <Container>
-        <Paper elevation={3} style={paperStyle}>
-        <Box
+        <Paper className='employee-paper' elevation={3}>
+        <Box className='box-style'
             component="form"
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
             noValidate
             autoComplete="off"
             id = "root"
         >
             <h1>Add employee</h1>
 
-            <TextField fullWidth id="fildName" label="Name" variant="outlined"  sx={{ display: "block" }}
+            <TextField  className='field 'fullWidth id="fildName" label="Name" variant="outlined" 
                value = {name}
                onChange={(e)=>setName(e.target.value)}
             />
 
-            <TextField fullWidth id="fildSurname" label="Surname" variant="outlined" sx={{ display: "block" }}
+            <TextField className='field' fullWidth id="fildSurname" label="Surname" variant="outlined" 
                value = {surname}
                onChange={(e)=>setSurname(e.target.value)}
             />
 
-            <TextField fullWidth id="fildSalary" label="Salary"  variant="outlined"  sx={{ display: "block" }}
+            <TextField className='field 'fullWidth id="fildSalary" label="Salary"  variant="outlined"  
                value = {salary}
                onChange={(e)=>
                 setSalary(parseInt(e.target.value))
             }
             />
 
-            <TextField fullWidth id="fildDepartment" label="Department"  variant="outlined"  sx={{ display: "block" }}
+            <TextField className='field 'fullWidth id="fildDepartment" label="Department"  variant="outlined"  
                value = {department}
                onChange={(e)=>setDepartment(e.target.value)}
             />
             <h2>Car</h2>
 
-         <TextField fullWidth id="fildTitle" label="model"  variant="outlined"  sx={{ display: "block" }}
+         <TextField className='field 'fullWidth id="fildTitle" label="model"  variant="outlined"  
              value = {model}
                onChange={(e)=>setModel(e.target.value)}
          />
 
-         <TextField fullWidth id="year" label="year"  variant="outlined"  sx={{ display: "block" }}
+         <TextField className='field' fullWidth id="year" label="year"  variant="outlined" 
              value = {made}
              onChange={(e)=>
                    setMade(parseInt(e.target.value))
@@ -199,19 +185,19 @@ export default function Employee() {
 
 <h2>House</h2>
 
-<TextField fullWidth id="fildTitle" label="Adress"  variant="outlined"  sx={{ display: "block" }}
+<TextField className='field' fullWidth id="fildTitle" label="Adress"  variant="outlined" 
     value = {adress}
       onChange={(e)=>setAdress(e.target.value)}
 />
 
-<TextField fullWidth id="year" label="flour"  variant="outlined"  sx={{ display: "block" }}
+<TextField className='field' fullWidth id="year" label="flour"  variant="outlined" 
     value = {flour}
     onChange={(e)=>
           setFlour(parseInt(e.target.value))
 } 
 />
 
-<TextField fullWidth id="year" label="flat"  variant="outlined"  sx={{ display: "block" }}
+<TextField className='field' fullWidth id="year" label="flat"  variant="outlined"  
     value = {flat}
     onChange={(e)=>
           setFlat(parseInt(e.target.value))
@@ -220,12 +206,12 @@ export default function Employee() {
 
 <h2>Pets</h2>
 
-<TextField fullWidth id="fildTitle" label="vid"  variant="outlined"  sx={{ display: "block" }}
+<TextField className='field' fullWidth id="fildTitle" label="vid"  variant="outlined"  
     value = {vid}
     onChange={(e)=>setVid(e.target.value)}
  />
 
-<TextField fullWidth id="year" label="petname"  variant="outlined"  sx={{ display: "block" }}
+<TextField className='field' fullWidth id="year" label="petname"  variant="outlined"  
     value = {petname}
     onChange={(e)=>
      setPetname(e.target.value)
@@ -237,12 +223,12 @@ export default function Employee() {
            
            <h2>Projects</h2>
 
-           <TextField fullWidth id="fildTitle" label="title"  variant="outlined"  sx={{ display: "block" }}
+           <TextField className='field' fullWidth id="fildTitle" label="title"  variant="outlined"  
                value = {title}
                onChange={(e)=>setTitle(e.target.value)}
             />
 
-           <TextField fullWidth id="year" label="year"  variant="outlined"  sx={{ display: "block" }}
+           <TextField className='field' fullWidth id="year" label="year"  variant="outlined"  
                value = {year}
                onChange={(e)=>
                 setYear(parseInt(e.target.value))
@@ -262,10 +248,10 @@ export default function Employee() {
 
         <h1>Employees</h1>
 
-        <Paper elevation={3} style={paperStyle}>
+        <Paper className='employee-paper' elevation={3}>
 
         {employees.map(employee=>(
-            <Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {employee.id}>
+            <Paper className='employee-paper-output' elevation = {6} key = {employee.id}>
             id:{employee.id} <br/>
             Name:{employee.name} <br/>
             Surname:{employee.surname} <br/>
@@ -274,7 +260,7 @@ export default function Employee() {
             <h3>Car</h3>
            
             
-           < Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {employee.car.id}>
+           < Paper className='employee-paper-output' elevation = {6} key = {employee.car.id}>
                 id:{employee.car.id} <br/>
                 Model:{employee.car.model} <br/>
                 Year:{employee.car.made}<br/>
@@ -283,7 +269,7 @@ export default function Employee() {
                 <h3>House</h3>
            
             
-           < Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {employee.house.id}>
+           < Paper className='employee-paper-output' elevation = {6}  key = {employee.house.id}>
                 id:{employee.house.id} <br/>
                 Adress:{employee.house.adress} <br/>
                 Flour:{employee.house.flour} <br/>
@@ -292,7 +278,7 @@ export default function Employee() {
                 
                 <h3>Pets</h3>
            {employee.pets.map(pet=>(
-                <Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {pet.id}>
+                <Paper className='employee-paper-output' elevation = {6}  key = {pet.id}>
                 id:{pet.id} <br/>
                 title:{pet.vid} <br/>
                 petname:{pet.petname}<br/>
@@ -301,7 +287,7 @@ export default function Employee() {
                 
                 <h3>Projects</h3>
            {employee.projects.map(project=>(
-                <Paper elevation = {6} style = {{margin:"10px",padding:"15px",textAlign:"left"}} key = {project.id}>
+                <Paper className='employee-paper-output' elevation = {6} key = {project.id}>
                 id:{project.id} <br/>
                 title:{project.title} <br/>
                 year:{project.year}<br/>
