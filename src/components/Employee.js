@@ -90,7 +90,7 @@ export default function Employee() {
       window.location.reload()
    }
 
-    async function handleClickUpdate  (idi) {
+     function handleClickUpdate  (idi) {
         
         const employee = employees.find(emp => emp.id === idi);
         
@@ -117,7 +117,9 @@ export default function Employee() {
         axios.delete(`http://localhost:8080/api1/employees/${id}`)
           .then(response => console.log(response))
           .catch(error => console.error(error))
-          window.location.reload()
+
+          const updatedEmployees = employees.filter(employee => employee.id !== id);
+          setEmployees(updatedEmployees);
       }
     
     
@@ -128,14 +130,7 @@ export default function Employee() {
         )
     },[])
 
-    function waitForUpdate() {
-        return new Promise(resolve => {
-          const updateButton = document.getElementById('buttonUpdate');
-          updateButton.addEventListener('click', () => {
-            resolve();
-          });
-        });
-      }
+
 
     return (
      <Container>
