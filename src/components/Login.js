@@ -74,35 +74,32 @@ export default function Login(props) {
           alt="profile-img"
           className="profile-img-card"
         />
-
-        <Form
-          onSubmit={handleLogin}
-          ref={form}
-        >
+        <br/>
+        <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
-            <Input
+            <input
               type="text"
               className="form-control"
               name="username"
               value={username}
-              onChange={onChangeUsername}
-              validations={[required]}
+              onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
-
+          <br/>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <Input
+            <input
               type="password"
               className="form-control"
               name="password"
               value={password}
-              onChange={onChangePassword}
-              validations={[required]}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
-
+          <br/>
           <div className="form-group">
             <button
               className="btn btn-primary btn-block"
@@ -122,13 +119,10 @@ export default function Login(props) {
               </div>
             </div>
           )}
-          <CheckButton
-            style={{ display: "none" }}
-            ref={checkBtn}
-          />
-        </Form>
+        </form>
       </div>
     </div>
+  
   );
 }
  
