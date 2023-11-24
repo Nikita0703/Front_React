@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import './Employee.css'
 import { useParams } from 'react-router-dom';
 
-export default function AddUser() {
+export default function ViewUser() {
     const {id} = useParams()
 
     const [employee, setEmployee] = useState({
