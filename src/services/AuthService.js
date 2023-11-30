@@ -22,12 +22,15 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(username, email, password) {
-    return axios.post(API_URL + "signup", {
-      username,
-      email,
-      password
-    });
+  register(employee) {
+    console.log(employee.username)
+    console.log(employee.password)
+    return axios.post(API_URL + "signup",
+    employee,{
+    headers:{"Contend-Type":"application/json",
+            "charset":"ISO-8859-1"
+            }
+    })
   }
 
   getCurrentUser() {
@@ -36,3 +39,7 @@ class AuthService {
 }
 
 export default new AuthService();
+
+
+
+

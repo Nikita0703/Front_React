@@ -8,9 +8,13 @@ import Button from '@mui/material/Button';
 import './Employee.css'
 import {Link} from 'react-router-dom';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import authHeader from '../services/Auth-header';
 export default function Employee() {
     const paperStyle={}
-   
+
+    let navigate = useNavigate()
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const [name,setName]=useState('')
     const [surname,setSurname]=useState('')
@@ -124,14 +128,58 @@ export default function Employee() {
       }
     
     
+      
     useEffect(()=>{
-        axios.get("http://localhost:8080/api1/employees")
-        .then(response=>
-            setEmployees(response.data)
+      const getInfo = async()=>{
+        const user = JSON.parse(localStorage.getItem('user'))
+        const AuthHeader = {
+        'Authorization': 'Bearer ' + user.accessToken
+        };
+      
+       await axios.get("http://localhost:8080/api1/employees",{headers:AuthHeader}
+
         )
-    },[])
+     
+       .then(response=>{
+            console.log(response.data)
+            setEmployees(response.data)
+        }
+        ).catch(error => {
+            console.log(error)
+        }
+        )
+        console.log(employees)
+      }
+      getInfo()
+    },[]
+    
+     
+    )
 
+  
+    function handleEmployeeChekForView(employeeId) {
+      if (employeeId === user.id) {
+        navigate(`/viewemployee/${employeeId}`)
+      } else {
+        alert('У вас недостаточно прав доступа');
+      }
+    }
 
+    function handleEmployeeChekForEdit(employeeId) {
+      if (employeeId === user.id) {
+        navigate(`/editemployee/${employeeId}`)
+      } else {
+        alert('У вас недостаточно прав доступа');
+      }
+    }
+
+    function handleEmployeeChekForDelete(employeeId) {
+      if (employeeId === user.id) {
+        handleEmployeeDelete(employeeId)
+      } else {
+        alert('У вас недостаточно прав доступа');
+      }
+    }
 
     return (
      <Container>
@@ -157,11 +205,11 @@ export default function Employee() {
                 <TableCell>{employee.salary}</TableCell>
                 <TableCell>{employee.department}</TableCell>
                 <TableCell>
-                   <Link variant="text" to = {`/viewemployee/${employee.id}`}>View </Link><br/>
+                   <Button variant="text" onClick = {() => handleEmployeeChekForView(employee.id)} >View </Button><br/>
                    <br/>
-                   <Link variant="text" to = {`/editemployee/${employee.id}`}>Edit </Link><br/>
+                   <Button variant="text" onClick = {() => handleEmployeeChekForEdit(employee.id)} >Edit </Button><br/>
                    <br/>
-                   <Button variant="outlined" onClick = {() => handleEmployeeDelete(employee.id)}> Delete</Button>
+                   <Button variant="outlined" onClick = {() => handleEmployeeChekForDelete(employee.id)}> Delete</Button>
                   
                 </TableCell>
               </TableRow>

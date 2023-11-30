@@ -32,7 +32,11 @@ export default function ViewUser() {
 
 
         useEffect(()=>{
-            axios.get(`http://localhost:8080/api1/employees/${id}`)
+            const user = JSON.parse(localStorage.getItem('user'))
+            const AuthHeader = {
+                'Authorization': 'Bearer ' + user.accessToken
+                };
+            axios.get(`http://localhost:8080/api1/employees/${id}`,{headers:AuthHeader})
             .then(response=>
                 setEmployee(response.data)
             )

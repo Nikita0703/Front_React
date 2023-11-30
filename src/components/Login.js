@@ -41,9 +41,9 @@ export default function Login(props) {
     setMessage("");
     setLoading(true);
 
-    form.current.validateAll();
+    //form.current.validateAll();
 
-    if (checkBtn.current.context._errors.length === 0) {
+  //  if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
           navigate("/all");
@@ -61,13 +61,15 @@ export default function Login(props) {
           setMessage(resMessage);
         }
       );
-    } else {
-      setLoading(false);
-    }
+   // } else {
+     // setLoading(false);
+   // }
   }
 
   return (
     <div className="col-md-12">
+      <br/>
+      <br/>
       <div className="card card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -75,7 +77,7 @@ export default function Login(props) {
           className="profile-img-card"
         />
         <br/>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin}ref={form}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input

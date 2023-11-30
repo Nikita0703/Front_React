@@ -12,6 +12,9 @@ import { useNavigate } from 'react-router-dom';
 export default function Register() {
     let navigate = useNavigate()
 
+    const [username,setUsername]=useState('')
+    const [password,setPassword]=useState('')
+    
     const [name,setName]=useState('')
     const [surname,setSurname]=useState('')
     const[salary,setSalary]=useState(0)
@@ -63,12 +66,10 @@ export default function Register() {
         e.preventDefault()
         const car = {model,made}
         const house = {adress,flour,flat}
-        const employee = {name,surname,salary,department,car,house,pets,projects}
+        const employee = {username,password,name,surname,salary,department,car,house,pets,projects}
         console.log(employee)
         AuthService.register(
-            this.state.username,
-            this.state.email,
-            this.state.password          
+            employee         
             ).then(()=>{
             console.log("New student added")
             navigate("/")
@@ -102,6 +103,16 @@ export default function Register() {
             id = "root"
         >
             <h1>Add employee</h1>
+
+            <TextField  className='field 'fullWidth id="fildName" label="Username" variant="outlined" 
+               value = {username}
+               onChange={(e)=>setUsername(e.target.value)}
+            />
+
+            <TextField className='field' fullWidth id="fildSurname" label="password" variant="outlined" 
+               value = {password}
+               onChange={(e)=>setPassword(e.target.value)}
+            />
 
             <TextField  className='field 'fullWidth id="fildName" label="Name" variant="outlined" 
                value = {name}
